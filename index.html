@@ -6,14 +6,18 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Homeless Encampment SRs</title>
+    <title>Homeless Encampment Complaints 2010-2016</title>
     <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link href="nv.d3.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Sans+Mono" />
+    <link href="./css/nv.d3.css" rel="stylesheet" type="text/css">
 
   </head>
 
   <style>
+
+  
+  
     html, body, #container {
       height: 100%;
       width: 100%;
@@ -22,7 +26,7 @@
 
     body {
 	  font-weight: bold;
-	  font-family: 'Helvetica';
+	  font-family: 'Droid Sans';
     }
 
     
@@ -37,12 +41,7 @@
       position:relative;
     }
 
-    #chartTitle {
-      position: absolute;
-      margin-top: 5px;
-      margin-left: 50px;
-      font-weight: bold;
-    }        
+
 	
 
 	
@@ -55,7 +54,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h4>
-				NYC 311 Homeless Encampment SRs  <small>Jan 1 - Aug 11, 2015</small>
+				NYC Homeless Encampment Complaints 2010-2016
 			</h4>
 		</div>
 	</div>
@@ -64,7 +63,6 @@
       <div id="map">
       </div>
 		<div id="chart">
-		<div id = "chartTitle"># of Homeless Encampment SRs by day</div>
       </div>
     </div>
 
@@ -81,13 +79,18 @@
     });
 
     L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
     }).addTo(map);
 
-    var layerUrl = 'https://timothymartin76.cartodb.com/api/v2/viz/060d4b32-4110-11e5-b73b-0e8dde98a187/viz.json';
+    var layerUrl = 'https://timothymartin76.cartodb.com/api/v2/viz/b0e3ef56-fa75-11e5-af70-0ef24382571b/viz.json';
 	
 
-    cartodb.createLayer(map, layerUrl)
+    cartodb.createLayer(map, layerUrl, {
+	title: true,
+	center_lat: 40.694526, 
+center_lon: -73.936176,
+zoom: 12
+})
+	
       .addTo(map)
       .on('done', function(layer) {
         layer.on('change:time', function(changes) {
