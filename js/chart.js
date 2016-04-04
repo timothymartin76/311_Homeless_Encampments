@@ -3,14 +3,14 @@
     var data;
     var verticalBar;
 
-    var apiCall = "https://timothymartin76.cartodb.com/api/v2/sql?format=json&q=SELECT date_trunc('day', created_date) AS \"day\" , count(*) AS \"complaints\" FROM homeless_encampments GROUP BY 1 ORDER BY 1";
+    var apiCall = "https://timothymartin76.cartodb.com/api/v2/sql?format=json&q=SELECT date_trunc('month', created_date) AS \"month\" , count(*) AS \"complaints\" FROM homelessenc GROUP BY 1 ORDER BY 1";
     var cartodbData = [];
 
     cartodbData = [{
                 area: true,
                 values: [],
-                key: "complaints",
-                color: "",
+                key: "# complaints",
+                color: "#FF9900",
                 strokeWidth: 4,
                 classed: 'dashed'
             }]
@@ -23,7 +23,7 @@
     	data.forEach(function(row){
     	
     		var value = {
-    			x: new Date(row.day),
+    			x: new Date(row.month),
     			y: row.complaints
 			};
 		
@@ -43,9 +43,8 @@
 		
 		 var tickMultiFormat = d3.time.format.utc.multi([  //d3.time.format.utc.multi returns a multi-resolution UTC time format
 
-            ["%b %-d", function(d) { return d.getDate() != 1; }], // not the first of the month
-            ["%b %-d", function(d) { return d.getMonth(); }], // not Jan 1st
-            ["%Y", function() { return true; }]
+ 
+            ["%b %Y", function() { return true; }]
         ]);
 		
 		
