@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Homeless Encampment Complaints Jan2010-Aug2016</title>
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Sans+Mono" />
+    <link href="nv.d3.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <style>
+
+  
+  
+    html, body, #container {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+	  font-weight: bold;
+	  font-family: 'Droid Sans';
+    }
+
+    
+    #map {
+      width: auto;
+      height: calc(100% - 240px);
+    }
+    
+    #chart, svg {
+      width: 100%;
+      height: 180px;
+      position:relative;
+    }
+
+
+	
+
+	
+	
+
+  </style>
+
+  <body>
+   <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h4>
+				Homeless Encampment Complaints (Jan 2010 - Aug 2016)
+			</h4>
+		</div>
+	</div>
+</div>
+    <div id="container">
+      <div id="map">
+      </div>
+		<div id="chart">
+      </div>
+    </div>
+
+
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.13/cartodb.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="./js/nv.d3.js"></script>
+    <script src="./js/chart.js"></script>
+    <script>
+
+    var map = new L.Map('map', { 
+      center: [40.759768,-73.940199],
+      zoom: 11
+    });
+
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    }).addTo(map);
+
+    var layerUrl = 'https://timothymartin76.carto.com/api/v2/viz/d6220682-6f1d-11e6-a43e-0e233c30368f/viz.json';
+	
+
+    cartodb.createLayer(map, layerUrl, {
+	title: true,
+	center_lat: 40.694526, 
+center_lon: -73.936176,
+zoom: 12
+})
+	
+      .addTo(map)
+      .on('done', function(layer) {
+        layer.on('change:time', function(changes) {
+
+        //update the vertical bar
+        verticalBar.attr("x1",chart.xAxis.scale()(new Date(changes.time))+chart.margin().left)
+          .attr("x2",chart.xAxis.scale()(new Date(changes.time))+chart.margin().left)
+        });
+
+      }).on('error', function() {
+        //log the error
+      });
+
+    //Logs current map center and zoom level for use in map init options
+    map.on('dragend',getInit).on('zoomend',getInit);
+
+    function getInit() {
+      var c = map.getCenter();
+      console.log('center: [' + c.lat + ',' + c.lng + '],\nzoom: ' + map.getZoom());
+    }
+
+    </script>
+  </body>
+</html>
