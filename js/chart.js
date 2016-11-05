@@ -3,7 +3,7 @@
     var data;
     var verticalBar;
 
-    var apiCall = "https://timothymartin76.cartodb.com/api/v2/sql?format=json&q=SELECT date_trunc('month', created_date) AS \"month\" , count(*) AS \"complaints\" FROM homelessenc GROUP BY 1 ORDER BY 1";
+    var apiCall = "https://timothymartin76.cartodb.com/api/v2/sql?format=json&q=SELECT date_trunc('month', created_date) AS \"month\" , count(*) AS \"complaints\" FROM c4ji_hcge GROUP BY 1 ORDER BY 1";
     var cartodbData = [];
 
     cartodbData = [{
